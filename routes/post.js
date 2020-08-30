@@ -9,6 +9,7 @@ router.get('/getallposts',requireLogin,(req,res)=>{
     Post.find()
         .populate('postedBy',"_id name")
         .populate("comments.postedBy","_id name")
+        .sort("-createdAt")
         .then(posts=>{
             if(!posts){
                 return res.status(404).json({

@@ -112,4 +112,12 @@ router.put('/unfollow/:userId',requireLogin,(req,res)=>{
         }).catch(err=>console.log(err))
 })
 
+router.post('/search-user',(req,res)=>{
+    const pattern = new RegExp("^"+req.body.query)
+    User.find({email:{$regex:pattern}})
+        .then(user=>{
+            res.json(user)
+        })
+})
+
 module.exports = router
